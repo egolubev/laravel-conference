@@ -11,27 +11,27 @@
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a href="{{ route('home') }}" class="nav-link" aria-current="page">
+                    <a href="{{ route('home') }}" class="nav-link {{ active_link('home') }}" aria-current="page">
                         Главная
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('program') }}" class="nav-link" aria-current="page">
+                    <a href="{{ route('program') }}" class="nav-link {{ active_link('program') }}" aria-current="page">
                         Программа
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('contacts') }}" class="nav-link" aria-current="page">
+                    <a href="{{ route('contacts') }}" class="nav-link {{ active_link('contacts') }}" aria-current="page">
                         Контакты
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('sponsor') }}" class="nav-link" aria-current="page">
+                    <a href="{{ route('sponsor') }}" class="nav-link {{ active_link('sponsor') }}" aria-current="page">
                         Спонсоры
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('thesis') }}" class="nav-link" aria-current="page">
+                    <a href="{{ route('thesis') }}" class="nav-link {{ active_link('thesis') }}" aria-current="page">
                         Тезисы
                     </a>
                 </li>
@@ -39,7 +39,12 @@
 
             <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link" aria-current="page">
+                    <a href="{{ route('register') }}" class="nav-link {{ active_link('register') }}" aria-current="page">
+                        {{ __('Регистрация') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('login') }}" class="nav-link {{ active_link('login') }}" aria-current="page">
                         {{ __('Вход') }}
                     </a>
                 </li>
