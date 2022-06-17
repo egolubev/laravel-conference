@@ -12,6 +12,15 @@
                             </h4>
                         </div>
                         <div class="card-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <form action="{{ route('register.store') }}" method="POST">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="mb-3">
@@ -33,10 +42,10 @@
                                     <input type="password" name="password" class="form-control">
                                 </div>
                                 <div class="mb-3">
-                                    <label class="required" for="password-confirm">
+                                    <label class="required" for="password_confirmation">
                                         {{__('Подтвердите пароль')}}
                                     </label>
-                                    <input type="password" name="password-confirm" class="form-control">
+                                    <input type="password" name="password_confirmation" class="form-control">
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     {{__('Войти')}}

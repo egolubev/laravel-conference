@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
@@ -11,33 +14,23 @@ class RegisterController extends Controller
         return view('register.index');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        // $data = $request->all();
-        // $data = $request->only(['name', 'email']);
-        // $data = $request->except(['name', 'email']);
-        // dd($data);
-
-        // $name = $request->input('name');
-        // $email = $request->input('email');
-        // $password = $request->input('password');
-        // $agreement = $request->boolean('agreement');
-        // $avatar = $request->file('avatar');
-
-        // dd($name, $email, $password, $agreement);
-
-        // dd($request->has('foo'));
-        // dd($request->filled('name'));
-        // dd($request->missing('name'));
-
-        // if ($name = $request->input('name')) {
-        //     $name = strtoupper($name);
-        // }
-
-        if (true) {
-            return redirect()->back()->withInput();
-        }
-
-        return redirect()->route('user');
+        // валидируем данные из формы
+        $request->validate([
+            'name' => ['required', 'string', 'max:15'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'confirmed', 'max:255'],
+        ]);
+        // формируем нового пользователя
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' =>  $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+        ]);
+        // аутентификация нового пользователя
+        Auth::login($user);
+        // кидаем на главную страницу
+        return redirect()->route('home');
     }
 }

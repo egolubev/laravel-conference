@@ -3,28 +3,30 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        // dd(session()->all());
-        // $foo = session('foo');
-        // dd($foo);
-
         return view('login.index');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
-        // authenticate user
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
 
-        alert(__('Добро пожаловать!'));
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        // if (true) {
-        // return redirect()->back()->withInput();
-        // }
+            return redirect()->route('home');
+        }
 
-        return redirect()->route('user');
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 }
