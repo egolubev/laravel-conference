@@ -29,11 +29,9 @@ class RegisterController extends Controller
             'email' =>  $request->input('email'),
             'password' => Hash::make($request->input('password')),
         ]);
-        // аутентификация нового пользователя
-        $request->session()->flash('user_registration_success', 'Вы успешно зарегистрированы!');
         // отправляем письмо для подтверждения email на почту
         event(new Registered($user));
-        // кидаем на главную страницу
-        return redirect()->route('home');
+        // кидаем на главную страницу + сообщение о успешной регистрации
+        return redirect()->route('home')->with('user_registration_success', 'Вы успешно зарегистрированы!');
     }
 }
