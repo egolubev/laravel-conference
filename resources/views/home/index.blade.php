@@ -5,8 +5,8 @@
         <h1>
             Главная страница
         </h1>
-        @if (Session::has('user_registration_success'))
-            <div class="alert alert-success">{{ Session::get('user_registration_success') }}</div>
+        @if (Session::has('message'))
+            <div class="alert alert-success">{{ Session::get('message') }}</div>
         @endif
     </div>
 @endsection
