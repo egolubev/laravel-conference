@@ -11,7 +11,9 @@
 <body>
     <div class="d-flex flex-column justify-content-between min-vh-100">
         @include('layouts.header')
-        @yield('content')
+        <div class="container">
+            @yield('content')
+        </div>
         @include('layouts.footer')
     </div>
     <script src="{{ asset('bootstrap502/js/bootstrap.min.js') }}"></script>

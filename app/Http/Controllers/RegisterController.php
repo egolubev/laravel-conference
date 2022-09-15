@@ -31,7 +31,9 @@ class RegisterController extends Controller
         ]);
         // отправляем письмо для подтверждения email на почту
         event(new Registered($user));
-        // кидаем на главную страницу + сообщение о успешной регистрации
-        return redirect()->route('home')->with('message', 'Вы успешно зарегистрированы!');
+        // аутентификация нового пользователя
+        Auth::login($user);
+        // кидаем на специальную страницу + сообщение о успешной регистрации
+        return redirect()->route('verification.notice')->with('message', 'Вы успешно зарегистрированы!');
     }
 }
